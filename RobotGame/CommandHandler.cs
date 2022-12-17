@@ -1,5 +1,4 @@
 ﻿using System.Drawing;
-using System.Text.RegularExpressions;
 
 namespace RobotGame
 {
@@ -70,7 +69,7 @@ namespace RobotGame
 
             if (int.TryParse(segments[0], out int x)) // not DRY, but leaving as is due to time constraints
             {
-                if (x > 5) // length of 5 is hardcoded, could restructure if dynamic length is needed
+                if (x > _robot.Length) // length of 5 is hardcoded, could restructure if dynamic length is needed
                 {
                     Console.WriteLine("Only numbers between 0 and 5 is allowed");
                     isValid = false;
@@ -79,7 +78,7 @@ namespace RobotGame
 
             if (int.TryParse(segments[1], out int y)) // not DRY, but leaving as is due to time constraints
             {
-                if (y > 5)  // length of 5 is hardcoded, could restructure if dynamic length is needed
+                if (y > _robot.Length)  // length of 5 is hardcoded, could restructure if dynamic length is needed
                 {
                     Console.WriteLine("Only numbers between 0 and 5 is allowed");
                     isValid = false;

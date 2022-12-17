@@ -3,9 +3,12 @@
 Console.WriteLine("Welcome! This game lets you move a robot on a grid.");
 Console.WriteLine("To begin, the robot needs to know some instructions.");
 var commands = ReadFromFile();
-var robot = new Robot();
+Console.WriteLine("What width and height should the grid be?");
+var length = Console.ReadLine();
+var robot = new Robot(int.Parse(length));
 var handler = new CommandHandler(commands, robot);
 handler.ExecuteCommands();
+robot.DrawGrid();
 
 List<string> ReadFromFile()
 {
@@ -13,7 +16,9 @@ List<string> ReadFromFile()
     {
         Console.WriteLine("Please enter the location of a .txt file.");
         var filePath = Console.ReadLine();
-        return File.ReadAllLines(filePath).ToList();
+
+        var tempPath = "C:\\Users\\tbe\\Documents\\commands5.txt";
+        return File.ReadAllLines(tempPath).ToList();
     }
     catch (Exception)
     {

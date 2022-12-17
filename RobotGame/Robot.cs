@@ -7,16 +7,64 @@ namespace RobotGame
         public Point Position { get; set; }
         public Direction Facing { get; set; }
         Point[] Points { get; set; }
-        int _length = 5;
+        public int Length { get; set; }
 
         public Robot()
         {
-            //Populate(); // not neccessary code but maybe useful in future
+            Populate(); // not neccessary code but maybe useful in future
+            Length = 5;
         }
         public Robot(int length)
         {
-            _length = length;
-            //Populate(); // not neccessary code but maybe useful in future
+            Length = length;
+            Populate(); // not neccessary code but maybe useful in future
+        }
+
+        public void DrawGrid()
+        {
+            Console.Clear();
+
+            int totalCounter = Points.Length - 1;
+            for (int i = 0; i < Length; i++) // 5 arrays
+            {
+                var row = "";
+
+                for (int j = Length; j > 0; j--) // 5 rows, for 5 arrays. 5x5 = 25
+                {
+                    if (Points[totalCounter].X == Position.X && Points[totalCounter].Y == Position.Y)
+                    {
+                        var direction = "";
+                        switch (Facing)
+                        {
+                            case Direction.North:
+                                direction = " ^ ";
+                                break;
+                            case Direction.East:
+                                direction = " > ";
+                                break;
+                            case Direction.South:
+                                direction = " v ";
+                                break;
+                            case Direction.West:
+                                direction = " < ";
+                                break;
+                            default:
+                                break;
+                        }
+                        //row += direction;
+                        row = row.Insert(0, direction);
+                    }
+                    else
+                    {
+                        row = row.Insert(0, $" * ");
+                    }
+                    totalCounter--;
+                }
+
+                Console.WriteLine(row);
+
+            }
+            Thread.Sleep(500);
         }
 
         public void Report()
@@ -35,6 +83,7 @@ namespace RobotGame
                 newFacing--;
 
             Facing = HandleOutsideOfEnumRange(newFacing);
+            DrawGrid();
         }
 
         Direction HandleOutsideOfEnumRange(Direction direction)
@@ -85,12 +134,17 @@ namespace RobotGame
             newPos.Offset(offset);
 
             if (IsValidPos(newPos)) Position = newPos;
-            else Console.WriteLine($"Oh no! You fell off the table. Putting you back at... {Position.X}, {Position.Y} facing {Facing}.");
+            else
+            {
+                Console.WriteLine($"Oh no! You fell off the table. Putting you back at... {Position.X}, {Position.Y} facing {Facing}.");
+                Thread.Sleep(2000);
+            }
+            DrawGrid();
         }
 
         bool IsValidPos(Point point) // check if new pos is outside of grid
         {
-            int max = _length - 1; // max is 5, but starting from 0 so max = length - 1
+            int max = Length - 1; // max is 5, but starting from 0 so max = length - 1
 
             var isAllowed = true;
             if (point.X > max) isAllowed = false;
@@ -103,20 +157,20 @@ namespace RobotGame
 
         void Populate() // not needed but was fun
         {
-            Points = new Point[_length * _length];
+            Points = new Point[Length * Length];
 
             int y = 0;
             int x = 0;
-            for (int i = 0; i < _length * _length; i++)
+            for (int i = 0; i < Length * Length; i++)
             {
                 Points[i] = new Point { X = x, Y = y };
-                y++;
-                if (y == _length) // determine when to start incrementing x
+                x++;
+                if (x == Length) // determine when to start incrementing y
                 {
-                    y = 0; // also reset y
-                    x++;
+                    x = 0; // also reset x
+                    y++;
                 }
-                if (x == _length) // i < length * length should mean this never occurs, but to be sure break
+                if (y == Length) // i < length * length should mean this never occurs, but to be sure break
                 {
                     break;
                 }
