@@ -17,7 +17,7 @@ List<string> ReadFromFile()
         Console.WriteLine("Please enter the location of a .txt file.");
         var filePath = Console.ReadLine();
 
-        var tempPath = "C:\\Users\\tbe\\Documents\\commands5.txt";
+        var tempPath = "C:\\Users\\tarek\\source\\repos\\RobotGame\\RobotGame\\TestData\\test.txt";
         return File.ReadAllLines(tempPath).ToList();
     }
     catch (Exception)

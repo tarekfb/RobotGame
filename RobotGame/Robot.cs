@@ -11,13 +11,13 @@ namespace RobotGame
 
         public Robot()
         {
-            Populate(); // not neccessary code but maybe useful in future
+            Populate();
             Length = 5;
         }
         public Robot(int length)
         {
             Length = length;
-            Populate(); // not neccessary code but maybe useful in future
+            Populate();
         }
 
         public void DrawGrid()
@@ -56,7 +56,7 @@ namespace RobotGame
                     }
                     else
                     {
-                        row = row.Insert(0, $" * ");
+                        row = row.Insert(0, $" . ");
                     }
                     totalCounter--;
                 }
